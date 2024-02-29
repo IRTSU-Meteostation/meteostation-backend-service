@@ -278,6 +278,15 @@ async def delete_user(user_id: int):
         return {'status' : 'success', 'message' : 'user deleted'}
     else:
         return {'status' : 'error', 'message' : 'user does not exist'}
+    
+@app.post('/delete_device')
+async def delete_device(device_id: int):
+    device = await Device.get(id=device_id)
+    if device:
+        await device.delete()
+        return {'status' : 'success', 'message' : 'device deleted'}
+    else:
+        return {'status' : 'error', 'message' : 'device does not exist'}
 
 @app.get('/get_snapshots')
 async def get_snapshots(device_id: int, start_date: datetime, end_date: datetime, type: str):
